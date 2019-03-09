@@ -3,7 +3,7 @@ layout: post
 title:  "彻底理解动态代理"
 date:   2019-03-07 22:57:54
 categories: Java
-tags: Java Dynamic Proxy
+tags: JavaSE
 ---
 
 * content

@@ -3,7 +3,7 @@ layout: post
 title:  "Java基本数据类型及其封装器的一些千丝万缕的纠葛"
 date:   2017-02-26 00:18:54
 categories: Java
-tags: Java primary type
+tags: JavaSE
 ---
 
 * content
