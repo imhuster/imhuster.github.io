@@ -341,47 +341,43 @@ JDK 能够很好地实现动态代理，但是如果被代理的类没有实现�
 CGLib 是一个强大的高性能的代码生成包，它可以在运行期扩展 Java 类及实现Java接口、提供方法的拦截，因此被众多 AOP 框架使用。CGLib 包的底层是通过使用字节码处理框架 ASM 来转换字节码并生成新的类。
 
 使用 CGLib 实现动态代理也很简单，首先
-
 1. 创建Enhancer对象
 2. 设置被代理类
 3. 回调对象（回调类实现 MethodInterceptor或InvocationHandler接口）
 4. 创建并设置回调对象
 5. 创建代理对象
 
-
-
 ```JAVA
 public class CGLib {
-	public static void main(String[] args) {
-		// 创建Enhancer对象
-		Enhancer enhancer = new Enhancer();
-		// 设置被代理类
-		enhancer.setSuperclass(ConcreteSubject.class);
+    public static void main(String[] args) {
+        // 创建Enhancer对象
+        Enhancer enhancer = new Enhancer();
+        // 设置被代理类
+        enhancer.setSuperclass(ConcreteSubject.class);
         
-		// 创建回调对象
+        // 创建回调对象
         //实现 MethodInterceptor 接口
-		Callback callback = new CGLibMethodInterceptor();
+        Callback callback = new CGLibMethodInterceptor();
         //实现 InvocationHandler 接口
         Callback callback = new CGLibInvocationHandler(new ConcreteSubject());
-		
         // 设置回调对象
-		enhancer.setCallback(callback);
-		// 创建代理对象
-		ConcreteSubject subject = (ConcreteSubject) enhancer.create();
-		subject.doOperation();
-	}
+        enhancer.setCallback(callback);
+        // 创建代理对象
+        ConcreteSubject subject = (ConcreteSubject) enhancer.create();
+        subject.doOperation();
+    }
 }
 //回调对象 实现 MethodInterceptor
 public class CGLibMethodInterceptor implements MethodInterceptor {
-	@Override
-	public Object intercept(Object obj,Method method,Object[] args,MethodProxy proxy) 
+    @Override
+    public Object intercept(Object obj,Method method,Object[] args,MethodProxy proxy) 
         throws Throwable {
-		Object ret = null;
-		System.out.println("CGLib before ConcreteSubject doOperation...");
-		ret = proxy.invokeSuper(obj, args);
-		System.out.println("CGLib after ConcreteSubject doOperation...");
-		return ret;
-	}
+        Object ret = null;
+        System.out.println("CGLib before ConcreteSubject doOperation...");
+        ret = proxy.invokeSuper(obj, args);
+        System.out.println("CGLib after ConcreteSubject doOperation...");
+        return ret;
+    }
 }
 //回调对象 实现 InvocationHandler
 public class CGLibInvocationHandler implements InvocationHandler {
@@ -406,7 +402,7 @@ public class CGLibInvocationHandler implements InvocationHandler {
 public class ConcreteSubject {
 	public void doOperation() {
 		System.out.println("ConcreteSubject doOperation...");
-	}
+    }
 }
 ```
 
