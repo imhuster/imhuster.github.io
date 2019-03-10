@@ -8,15 +8,20 @@ tags: JavaSE
 
 * content
 {:toc}
+本文篇幅比较长，在确定您是否需要仔细阅读本文前，可以先思考一下下面几个问题：
 
+1. 动态代理是什么？
+2. 如何实现动态代理？
+3. 所有类都能实现动态代理吗？
+4. 非目标方法是否会被代理？
+5. 为什么 JDK 实现动态代理必须要求被代理类实现接口？
+6. 为什么 CGLib 实现动态代理要求被代理类为非 final类？
 
 为了理解动态代理，我们需要先了解代理模式是怎么回事。
 
 ###  代理模式
 
 代理模式给某一个对象提供一个代理对象，并由代理对象控制对原对象的引用。可以将代理模式理解为生活中常见的中介，UML 图如下。
-
-
 
 ![OverrideTrap](proxy.png)
 
@@ -128,7 +133,13 @@ public static Object newProxyInstance(ClassLoader loader,
                                       InvocationHandler h)
 ```
 
-其中，loader 为类加载器，interfaces 为被代理对象需要实现的接口，h为方法调用的实际处理者。
+其中，
+
+1. loader 为类加载器，出于安全性，要求 loader 对 interfaces 可见，通常使用被代理类的ClassLoader。
+2. interfaces 为被代理对象需要实现的所有接口。
+3. h为方法调用的实际处理者，通过 InvocationHandler 对被代理类进行拓展。
+
+(ps:类加载器后面会有专门介绍。)
 
 但是，等一下，为什么需要这三个参数呢？是不是任意一个 Java 类都可以动态代理呢？我们不妨深入看看 Proxy类到底做了什么？Proxy.newProxyInstance 方法的主要内容（删除了安全检测等内容）如下：
 
