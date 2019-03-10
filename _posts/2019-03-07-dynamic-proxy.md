@@ -23,7 +23,7 @@ tags: JavaSE
 
 代理模式给某一个对象提供一个代理对象，并由代理对象控制对原对象的引用。可以将代理模式理解为生活中常见的中介，UML 图如下。
 
-![OverrideTrap](proxy.png)
+![OverrideTrap](https://raw.githubusercontent.com/imhuster/imhuster.github.io/master/js/img/blog/proxy.png)
 
 ```java
 public interface Subject {
